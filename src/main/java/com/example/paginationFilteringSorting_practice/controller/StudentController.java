@@ -2,6 +2,7 @@ package com.example.paginationFilteringSorting_practice.controller;
 
 import com.example.paginationFilteringSorting_practice.model.Student;
 import com.example.paginationFilteringSorting_practice.model.StudentPage;
+import com.example.paginationFilteringSorting_practice.model.StudentSearchCriteria;
 import com.example.paginationFilteringSorting_practice.service.StudentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,6 +19,12 @@ public class StudentController {
     @GetMapping
     public ResponseEntity<Page<Student>> getStudents(StudentPage studentPage){
         return new ResponseEntity<>(studentService.getStudent(studentPage), HttpStatus.OK);
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<Page<Student>> getStudentsByCriteria(StudentPage studentPage,
+                                                               StudentSearchCriteria studentSearchCriteria){
+        return new ResponseEntity<>(studentService.getStudentByCriteria(studentPage , studentSearchCriteria), HttpStatus.OK);
     }
 
     @PostMapping

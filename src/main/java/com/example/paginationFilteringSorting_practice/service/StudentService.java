@@ -2,6 +2,8 @@ package com.example.paginationFilteringSorting_practice.service;
 
 import com.example.paginationFilteringSorting_practice.model.Student;
 import com.example.paginationFilteringSorting_practice.model.StudentPage;
+import com.example.paginationFilteringSorting_practice.model.StudentSearchCriteria;
+import com.example.paginationFilteringSorting_practice.repository.StudentCriteriaRepository;
 import com.example.paginationFilteringSorting_practice.repository.StudentRepository;
 import org.springframework.data.domain.Page;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +17,12 @@ import org.springframework.stereotype.Service;
 public class StudentService {
 
     private final StudentRepository studentRepository;
+    private final StudentCriteriaRepository studentCriteriaRepository;
+
+    public Page<Student> getStudentByCriteria(StudentPage studentPage,
+                                               StudentSearchCriteria studentSearchCriteria){
+        return studentCriteriaRepository.findAllWithFilters(studentPage, studentSearchCriteria);
+    }
 
     public Page<Student> getStudent(StudentPage studentPage){
         Sort sort = Sort.by(studentPage.getSortDirection(), studentPage.getSortBy());
