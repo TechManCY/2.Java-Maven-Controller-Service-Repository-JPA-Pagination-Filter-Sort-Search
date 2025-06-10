@@ -12,6 +12,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class StudentService {
@@ -19,11 +21,23 @@ public class StudentService {
     private final StudentRepository studentRepository;
     private final StudentCriteriaRepository studentCriteriaRepository;
 
+    // filter by one item from an attribute of a list
+    public Page<Student> searchByClassId(Integer classId, StudentPage studentPage){
+        Sort sort = Sort.by(studentPage.getSortDirection(), studentPage.getSortBy());
+        Pageable pageable = PageRequest.of(
+                studentPage.getPageNumber(),
+                studentPage.getPageSize(),
+                sort );
+        return studentRepository.findByClassId(classId, pageable);
+    }
+
+    // filter by Criteria
     public Page<Student> getStudentByCriteria(StudentPage studentPage,
                                               StudentSearchCriteria studentSearchCriteria) {
         return studentCriteriaRepository.findAllWithFilters(studentPage, studentSearchCriteria);
     }
 
+    //get Page
     public Page<Student> getStudent(StudentPage studentPage){
         Sort sort = Sort.by(studentPage.getSortDirection(), studentPage.getSortBy());
         Pageable pageable = PageRequest.of(

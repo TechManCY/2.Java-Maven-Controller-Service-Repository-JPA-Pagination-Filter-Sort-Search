@@ -90,14 +90,14 @@ public class StudentCriteriaRepository {
             );
         }
         // range search
-        if (Objects.nonNull(studentSearchCriteria.getMinGrade())){
+        if (Objects.nonNull(studentSearchCriteria.getMinGpa())){
             predicates.add(
-                    criteriaBuilder.greaterThanOrEqualTo(studentRoot.get("minGrade"),studentSearchCriteria.getMinGrade())
+                    criteriaBuilder.greaterThanOrEqualTo(studentRoot.get("gpa"),studentSearchCriteria.getMinGpa())
             );
         }
-        if (Objects.nonNull(studentSearchCriteria.getMaxGrade())){
+        if (Objects.nonNull(studentSearchCriteria.getMaxGpa())){
             predicates.add(
-                    criteriaBuilder.lessThanOrEqualTo(studentRoot.get("maxGrade"),studentSearchCriteria.getMaxGrade())
+                    criteriaBuilder.lessThanOrEqualTo(studentRoot.get("gpa"),studentSearchCriteria.getMaxGpa())
             );
         }
         return criteriaBuilder.and(predicates.toArray(new Predicate[0]));

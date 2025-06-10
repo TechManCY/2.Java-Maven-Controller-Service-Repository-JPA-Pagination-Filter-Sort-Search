@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @Table(name = "STUDENT")
 @Data @AllArgsConstructor @NoArgsConstructor
@@ -14,6 +16,13 @@ public class Student {
     private Long id;
     private String firstName;
     private String lastName;
-    private Integer grade;
+    private Double gpa;
+    @ElementCollection
+    @CollectionTable(
+            name = "student_class_ids",
+            joinColumns = @JoinColumn(name = "student_id")
+    )
+    @Column(name = "class_id")
+    private List<Integer> classIds;
 
 }

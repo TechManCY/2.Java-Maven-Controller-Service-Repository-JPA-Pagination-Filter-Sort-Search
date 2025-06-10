@@ -10,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.data.domain.Page;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/students")
 @RequiredArgsConstructor
@@ -19,6 +21,14 @@ public class StudentController {
     @GetMapping
     public ResponseEntity<Page<Student>> getStudents(StudentPage studentPage){
         return new ResponseEntity<>(studentService.getStudent(studentPage), HttpStatus.OK);
+    }
+
+    //filter by one item from an attribute of a list
+    @GetMapping("/search/classId")
+    public ResponseEntity<Page<Student>> getStudentsByClassId(
+            Integer classId,
+            StudentPage studentPage){
+        return new ResponseEntity<>(studentService.searchByClassId(classId, studentPage), HttpStatus.OK);
     }
 
     @GetMapping("/search")
