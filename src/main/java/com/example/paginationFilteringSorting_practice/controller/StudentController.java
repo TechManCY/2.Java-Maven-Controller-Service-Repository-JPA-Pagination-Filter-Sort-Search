@@ -31,6 +31,14 @@ public class StudentController {
         return new ResponseEntity<>(studentService.searchByClassId(classId, studentPage), HttpStatus.OK);
     }
 
+    //filter by list from an attribute of a list - OR search, not an AND search
+    @GetMapping("/search/classIds")
+    public ResponseEntity<Page<Student>> getStudentsByClassIds(
+            @RequestParam List<Integer> classIds,
+            StudentPage studentPage) {
+        return new ResponseEntity<>(studentService.searchByClassIds(classIds, studentPage), HttpStatus.OK);
+    }
+
     @GetMapping("/search")
     public ResponseEntity<Page<Student>> getStudentsByCriteria(StudentPage studentPage,
                                                                StudentSearchCriteria studentSearchCriteria){

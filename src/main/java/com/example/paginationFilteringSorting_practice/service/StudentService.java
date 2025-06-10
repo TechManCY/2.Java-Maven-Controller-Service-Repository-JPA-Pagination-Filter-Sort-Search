@@ -31,6 +31,18 @@ public class StudentService {
         return studentRepository.findByClassId(classId, pageable);
     }
 
+    //filter by list from an attribute of a list - - OR search, not an AND search
+    public Page<Student> searchByClassIds(List<Integer> classIds, StudentPage studentPage) {
+        Sort sort = Sort.by(studentPage.getSortDirection(), studentPage.getSortBy());
+        Pageable pageable = PageRequest.of(
+                studentPage.getPageNumber(),
+                studentPage.getPageSize(),
+                sort
+        );
+        return studentRepository.findByClassIds(classIds, pageable);
+    }
+
+
     // filter by Criteria
     public Page<Student> getStudentByCriteria(StudentPage studentPage,
                                               StudentSearchCriteria studentSearchCriteria) {

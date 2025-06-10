@@ -16,4 +16,11 @@ public interface StudentRepository extends JpaRepository <Student, Long> , Pagin
     //filter by one item from an attribute of a list
     @Query("SELECT s FROM Student s JOIN s.classIds c WHERE c = :classId")
     Page<Student> findByClassId(@Param("classId") Integer classId, Pageable pageable);
+
+    //filter by list from an attribute of a list - - OR search, not an AND search
+    //DISTINCT is used to avoid duplicate students if they have multiple matching classIds.
+    @Query("SELECT DISTINCT s FROM Student s JOIN s.classIds c WHERE c IN :classIds")
+    Page<Student> findByClassIds(@Param("classIds") List<Integer> classIds, Pageable pageable);
+
+
 }
