@@ -20,7 +20,7 @@ public class StudentService {
     private final StudentCriteriaRepository studentCriteriaRepository;
 
     public Page<Student> getStudentByCriteria(StudentPage studentPage,
-                                               StudentSearchCriteria studentSearchCriteria){
+                                              StudentSearchCriteria studentSearchCriteria) {
         return studentCriteriaRepository.findAllWithFilters(studentPage, studentSearchCriteria);
     }
 

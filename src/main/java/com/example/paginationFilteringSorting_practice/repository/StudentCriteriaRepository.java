@@ -89,6 +89,17 @@ public class StudentCriteriaRepository {
                     criteriaBuilder.like(studentRoot.get("lastName"),"%"+studentSearchCriteria.getLastName() + "%")
             );
         }
+        // range search
+        if (Objects.nonNull(studentSearchCriteria.getMinGrade())){
+            predicates.add(
+                    criteriaBuilder.greaterThanOrEqualTo(studentRoot.get("minGrade"),studentSearchCriteria.getMinGrade())
+            );
+        }
+        if (Objects.nonNull(studentSearchCriteria.getMaxGrade())){
+            predicates.add(
+                    criteriaBuilder.lessThanOrEqualTo(studentRoot.get("maxGrade"),studentSearchCriteria.getMaxGrade())
+            );
+        }
         return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
         }
     }

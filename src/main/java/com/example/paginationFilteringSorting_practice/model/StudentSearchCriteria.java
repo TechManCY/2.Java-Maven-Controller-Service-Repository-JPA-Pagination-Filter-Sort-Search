@@ -6,4 +6,6 @@ import lombok.Data;
 public class StudentSearchCriteria {
     private String firstName;
     private String lastName;
+    private Integer minGrade;
+    private Integer maxGrade;
 }
